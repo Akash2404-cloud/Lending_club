@@ -1,0 +1,1 @@
+ pip install -r C:\Users\PARMAR\PycharmProjects\pythonProject\required_pkgs\requirements.txt
