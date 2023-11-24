@@ -1,17 +1,17 @@
 
-properties_spark = {
-'spark.sql.unacceptable_rated_pts' :  0,
-'spark.sql.very_bad_rated_pts' : 100,
-'spark.sql.bad_rated_pts':  250,
-'spark.sql.good_rated_pts' :  500,
-'spark.sql.very_good_rated_pts' :  650,
-'spark.sql.excellent_rated_pts' : 800,
-'spark.sql.unacceptable_grade_pts' : 750,
-'spark.sql.very_bad_grade_pts' : 1000,
-'spark.sql.bad_rated_grade_pts' : 1500,
-'spark.sql.good_grade_pts' : 2000,
-'spark.sql.very_good_grade_pts' : 2500
-}
+# properties_spark = {
+# 'spark.sql.unacceptable_rated_pts' :  0,
+# 'spark.sql.very_bad_rated_pts' : 100,
+# 'spark.sql.bad_rated_pts':  250,
+# 'spark.sql.good_rated_pts' :  500,
+# 'spark.sql.very_good_rated_pts' :  650,
+# 'spark.sql.excellent_rated_pts' : 800,
+# 'spark.sql.unacceptable_grade_pts' : 750,
+# 'spark.sql.very_bad_grade_pts' : 1000,
+# 'spark.sql.bad_rated_grade_pts' : 1500,
+# 'spark.sql.good_grade_pts' : 2000,
+# 'spark.sql.very_good_grade_pts' : 2500
+# }
 
 id_cols = ["emp_title", "emp_length", "home_ownership", "annual_inc",
            "zip_code", "addr_state", "grade", "sub_grade",
@@ -33,6 +33,18 @@ loans_repay_schema = '''loan_id string, total_principal_received float, total_in
 loan_defaulters_schema = """member_id string, delinq_2yrs float, delinq_amnt float, pub_rec float, 
 pub_rec_bankruptcies float,inq_last_6mths float, total_rec_late_fee float, mths_since_last_delinq float, 
 mths_since_last_record float"""
+
+
+columns_to_check_loan = ["loan_amount", "funded_amount", "loan_term_months",
+                    "interest_rate", "monthly_installment",
+                    "issue_date", "loan_status", "loan_purpose"]
+
+loan_purpose_lookup = ["debt_consolidation", "credit_card", "home_improvement", "other", "major_purchase",
+                       "medical", "small_business", "car", "vacation", "moving", "house", "wedding",
+                       "renewable_energy", "educational"]
+
+columns_to_check_repayments = ["total_principal_received", "total_interest_received", "total_late_fee_received",
+                    "total_payment_received", "last_payment_amount"]
 
 basic_properties_csv = {
     'header':'true',
@@ -72,6 +84,7 @@ files = {
     'loans_defaulters_detail_records_enq':{
         'silver': 'D:\\p_proj\\silver\\loans_defaulters_detail_records_enq'
     },
-    'total_files': 'D:\\p_proj\\gold\\total_files'
+    'total_files': 'D:\\p_proj\\gold\\total_files' ,
+    'bad_data': 'D:\\p_proj\\bad_files'
 
 }

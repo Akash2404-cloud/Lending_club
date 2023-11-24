@@ -6,7 +6,6 @@ def get_spark_session():
     spark = SparkSession \
         .builder \
         .appName('Loan Score') \
-        .config(map=properties_spark) \
         .master('local[*]') \
         .getOrCreate()
 

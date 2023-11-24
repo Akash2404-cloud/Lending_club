@@ -1,9 +1,7 @@
-from utility.creating_spark_session import *
+# from utility.creating_spark_session import *
 from configs.config import *
 
-spark = get_spark_session()
-
-def get_file(loc , inferschema , schema):
+def get_file(spark , loc , inferschema , schema):
     if inferschema == True:
         basic_properties_csv['inferSchema'] = inferschema
     else:
