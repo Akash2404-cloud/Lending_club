@@ -1,7 +1,10 @@
 from utility.logger import *
+# from utility.file_functions.get_csv_file import *
+# from configs.config import *
 
-def join_tables(customers , loans , loans_repayments ,
+def join_tables(spark , customers , loans , loans_repayments ,
                 loans_defaulters_delinq , loans_defaulters_detail_records_enq):
+
 
     c1 = customers.member_id == loans.member_id
     c2 = loans.member_id == loans_repayments.member_id
@@ -16,3 +19,5 @@ def join_tables(customers , loans , loans_repayments ,
     .join(loans_defaulters_detail_records_enq , on = c4 , how = 'inner' )
 
     return total_tables
+
+

@@ -48,13 +48,14 @@ columns_to_check_repayments = ["total_principal_received", "total_interest_recei
 
 basic_properties_csv = {
     'header':'true',
-    'mode':'permissive'
+    'mode':'permissive',
+    'samplingRatio' : 0.4
 }
 
 input_file = 'D:\\p_proj\\accepted_2007_to_2018Q4.csv'
 
 files = {
-    'customer' : {
+    'customers' : {
         'bronze' : 'D:\\p_proj\\bronze\\customers',
         'silver' : 'D:\\p_proj\\silver\\customers',
         'gold' : 'D:\\p_proj\\gold\\customers'
