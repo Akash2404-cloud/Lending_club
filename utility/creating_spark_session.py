@@ -1,12 +1,15 @@
 from configs.config import *
 from pyspark.sql import SparkSession
 from utility.logger import *
+from utility.file_functions.extras import *
 
 def get_spark_session():
     spark = SparkSession \
         .builder \
         .appName('Loan Score') \
-        .master('local[*]') \
+        .config(conf = get_pyspark_config())\
+        .master('yarn') \
+        .enableHiveSupport()\
         .getOrCreate()
 
 

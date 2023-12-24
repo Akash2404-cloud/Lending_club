@@ -45,7 +45,6 @@ customer = customers.withColumnRenamed("annual_inc", "annual_income") \
 .withColumnRenamed("country", "address_country") \
 .withColumnRenamed("tot_hi_credit_lim", "total_high_credit_limit") \
 .withColumnRenamed("annual_inc_joint", "join_annual_income")
-
 customers = add_time(customers).where('annual_income is not null') \
     .withColumn('emp_length',regexp_replace(col("emp_length"), "(\D)","")) \
     .withColumn('emp_length' , customers['emp_length'].cast(int)) \
@@ -90,6 +89,7 @@ loans_defaulters = add_time(loans_defaulters).withColumn("delinq_2yrs", col("del
 write_cleanedfiles = write_file(loc = files['loans_defaulters']['silver'], data_format = 'csv')
 write_cleanedfiles.file_writer(loans , 'overwrite')
 
+
 loans_defaulters_delinq = loans_defaulters.where('delinq_2yrs > 0 or mths_since_last_delinq > 0') \
     .select('member_id','delinq_2yrs' , 'delinq_amnt' , expr('int(mths_since_last_delinq)'))
 write_cleanedfiles = write_file(loc = files['loans_defaulters_delinq']['silver'], data_format = 'csv')
@@ -114,7 +114,7 @@ write_cleanedfiles.file_writer(loans , 'overwrite')
 
 # --------------------------------------------------------------------------------------------------------------------------------
 
-total_tables = join_tables(spark ,customers , loans , loans_repayments ,
+total_tables = join_tables(customers , loans , loans_repayments ,
                 loans_defaulters_delinq , loans_defaulters_detail_records_enq)
 write_cleanedfiles = write_file(loc = files['total_files'], data_format = 'csv')
 write_cleanedfiles.file_writer(loans , 'overwrite')
@@ -152,7 +152,7 @@ loans_defaulters_detail_records_enq = loans_defaulters_detail_records_enq.where(
 write_cleanedfiles = write_file(loc = files['loans_defaulters_detail_records_enq']['silver'], data_format = 'csv')
 write_cleanedfiles.file_writer(loans , 'overwrite')
 
-# spark.conf.get('spark.sql.unacceptable_rated_pts')
+
 
 c1 = loans_repayments.loan_id == loans.loan_id
 tb1 = loans_repayments.join(loans ,c1 , 'inner').where(~col('member_id').isin(bad_data_customers))

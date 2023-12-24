@@ -2,7 +2,7 @@ from utility.logger import *
 # from utility.file_functions.get_csv_file import *
 # from configs.config import *
 
-def join_tables(spark , customers , loans , loans_repayments ,
+def join_tables( customers , loans , loans_repayments ,
                 loans_defaulters_delinq , loans_defaulters_detail_records_enq):
 
 
